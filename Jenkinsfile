@@ -37,7 +37,7 @@ def test(env) {
     echo "Installing Node dependencies..."
     npm install
     echo "Running tests on ${env} environment..."
-    npm run greetings greetings_${env}
+    npm run greetings -- greetings_${env}
     """
 }
 
