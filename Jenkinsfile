@@ -18,17 +18,11 @@ def deploy(env, port) {
     git clone https://github.com/mtararujs/python-greetings
     cd python-greetings
     echo "Stopping existing service if exists..."
-    pm2 list | findstr "greetings-app-${env}" > nul
-    if %errorlevel% neq 0 (
-        echo "Process greetings-app-${env} not found, skipping delete."
-    ) else (
-        pm2 delete greetings-app-${env}
-    )
+    pm2 delete greetings-app-${env} || true
     echo "Starting service on port ${port}..."
-    pm2 start app.py --name greetings-app-${env} -- --port ${port} --no-daemon
+    pm2 start app.py --name greetings-app-${env} -- --port ${port}
     """
 }
-
 
 def test(env) {
     bat """
@@ -53,7 +47,7 @@ pipeline {
             steps {
                 script {
                     echo 'Checking npm version...'
-                    bat '"C:\\Program Files\\nodejs\\npm" -v'
+                    bat 'npm -v'
                 }
             }
         }
@@ -61,7 +55,7 @@ pipeline {
         stage('Install pm2'){ 
             steps {
                 script {
-                    bat '"C:\\Program Files\\nodejs\\npm" install -g pm2'
+                    bat 'npm install -g pm2'
                 }
             }
         }
