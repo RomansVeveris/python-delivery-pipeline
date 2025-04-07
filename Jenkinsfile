@@ -39,7 +39,20 @@ def test(env) {
 pipeline {
     agent any
 
+    tools {
+        nodejs 'NodeJS'
+    }
     stages {
+        stage('Check npm'){ 
+            steps {
+                script {
+                    echo 'Checking npm version...'
+                    bat 'npm -v'
+                }
+            }
+        }
+
+
         stage('install-pip-deps') {
             steps {
                 script {
