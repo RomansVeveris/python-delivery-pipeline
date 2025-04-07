@@ -5,7 +5,7 @@ def installPythonDeps() {
     git clone https://github.com/mtararujs/python-greetings
     cd python-greetings
     echo "Listing repo files..."
-    ls -la
+    dir /b
     echo "Installing Python dependencies..."
     pip3 install -r requirements.txt
     '''
@@ -18,7 +18,12 @@ def deploy(env, port) {
     git clone https://github.com/mtararujs/python-greetings
     cd python-greetings
     echo "Stopping existing service if exists..."
-    pm2 delete greetings-app-${env} || true
+    pm2 list | findstr "greetings-app-${env}" >nul
+    if %errorlevel% equ 0 (
+        pm2 delete greetings-app-${env}
+    ) else (
+        echo "Process greetings-app-${env} not found, skipping delete."
+    )
     echo "Starting service on port ${port}..."
     pm2 start app.py --name greetings-app-${env} -- --port ${port}
     """
@@ -42,12 +47,13 @@ pipeline {
     tools {
         nodejs 'NodeJS'
     }
+
     stages {
         stage('Check npm'){ 
             steps {
                 script {
                     echo 'Checking npm version...'
-                    bat 'npm -v'
+                    bat 'cmd /c chcp 65001 && npm -v'
                 }
             }
         }
@@ -55,13 +61,11 @@ pipeline {
         stage('Install pm2'){ 
             steps {
                 script {
+                    echo 'Installing pm2 globally...'
                     bat 'npm install -g pm2'
                 }
             }
         }
-
-
-
 
         stage('install-pip-deps') {
             steps {
