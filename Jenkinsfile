@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                     echo 'Checking npm version...'
-                    bat 'npm -v'
+                    bat 'cmd /c chcp 65001 && npm -v'
                 }
             }
         }
