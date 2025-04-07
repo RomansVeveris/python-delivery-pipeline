@@ -52,6 +52,16 @@ pipeline {
             }
         }
 
+        stage('Install pm2'){ 
+            steps {
+                script {
+                    bat 'npm install -g pm2'
+                }
+            }
+        }
+
+
+
 
         stage('install-pip-deps') {
             steps {
