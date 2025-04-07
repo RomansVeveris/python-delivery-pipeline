@@ -1,6 +1,7 @@
 def installPythonDeps() {
     bat '''
     echo "Cloning python-greetings repo..."
+    if exist python-greetings rmdir /s /q python-greetings
     git clone https://github.com/mtararujs/python-greetings
     cd python-greetings
     echo "Listing repo files..."
@@ -13,6 +14,7 @@ def installPythonDeps() {
 def deploy(env, port) {
     bat """
     echo "Cloning python-greetings repo..."
+    if exist python-greetings rmdir /s /q python-greetings
     git clone https://github.com/mtararujs/python-greetings
     cd python-greetings
     echo "Stopping existing service if exists..."
