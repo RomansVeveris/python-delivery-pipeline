@@ -40,7 +40,7 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'NodeJS'
+        nodejs 'NodeJS 18'
     }
     stages {
         stage('Check npm'){ 
