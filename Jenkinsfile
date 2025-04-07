@@ -1,5 +1,5 @@
 def installPythonDeps() {
-    sh '''
+    bat '''
     echo "Cloning python-greetings repo..."
     git clone https://github.com/mtararujs/python-greetings
     cd python-greetings
@@ -11,7 +11,7 @@ def installPythonDeps() {
 }
 
 def deploy(env, port) {
-    sh """
+    bat """
     echo "Cloning python-greetings repo..."
     git clone https://github.com/mtararujs/python-greetings
     cd python-greetings
@@ -23,7 +23,7 @@ def deploy(env, port) {
 }
 
 def test(env) {
-    sh """
+    bat """
     echo "Cloning JS API test framework..."
     git clone https://github.com/mtararujs/course-js-api-framework
     cd course-js-api-framework
