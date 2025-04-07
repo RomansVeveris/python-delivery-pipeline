@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                     echo 'Checking npm version...'
-                    bat 'cmd /c chcp 65001 && npm -v'
+                    bat '"C:\\Program Files\\nodejs\\npm" -v'
                 }
             }
         }
@@ -61,7 +61,7 @@ pipeline {
         stage('Install pm2'){ 
             steps {
                 script {
-                    bat 'npm install -g pm2'
+                    bat '"C:\\Program Files\\nodejs\\npm" install -g pm2'
                 }
             }
         }
