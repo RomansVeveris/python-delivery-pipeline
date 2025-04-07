@@ -44,6 +44,7 @@ pipeline {
             steps {
                 script {
                     echo '=== Stage: install-pip-deps ==='
+                    bat "npm install"
                     installPythonDeps()
                 }
             }
